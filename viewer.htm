@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Photo</title>
+</head>
+<body bgcolor="#000000">
+<img src="" id="imag" >
+<script>
+var chem = window.location.hash.substring(2);
+var rot = window.location.hash.substring(1,2);
+chem = chem.replace(/\*/g,"%");
+chem = decodeURIComponent(chem);
+switch (rot) {
+case "1":
+document.getElementById("imag").style.maxWidth="95vh";
+document.getElementById("imag").style.maxHeight="98vw";
+document.getElementById("imag").style.WebkitTransform="rotate(90deg) translate(0px,-100%)";
+document.getElementById("imag").style.WebkitTransformOrigin="top left";
+break;
+case "2":
+document.getElementById("imag").style.maxWidth="95vh";
+document.getElementById("imag").style.maxHeight="98vw";
+document.getElementById("imag").style.WebkitTransform="rotate(270deg) translate(-100%,0px)";
+document.getElementById("imag").style.WebkitTransformOrigin="top left";
+break;
+case "3":
+document.getElementById("imag").style.maxWidth="98vw";
+document.getElementById("imag").style.maxHeight="95vh";
+document.getElementById("imag").style.WebkitTransform="rotate(180deg) translate(-100%,-100%)";
+document.getElementById("imag").style.WebkitTransformOrigin="top left";
+break;
+default:
+document.getElementById("imag").style.maxWidth="98vw";
+document.getElementById("imag").style.maxHeight="95vh";
+}
+document.getElementById("imag").src=chem;
+</script>
+</body>
+</html>
