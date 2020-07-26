@@ -27,7 +27,7 @@ echo ^<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.co
 echo ^<Folder^>>>%kmlfic%
 echo ^<name^>%kmlname%^</name^>>>%kmlfic%
 "C:\Program Files (x86)\ExifTool\exiftool.exe" -createdate -gpslatitude -gpslongitude -ifd0:orientation -filename -d "%%d/%%m/%%Y %%H:%%M:%%S" -c "%%.6f" -f -args -charset filename=Latin -charset EXIF=UTF8 -@ "%kmlrepdest%%kmlname%.lst" >"%kmlrepdest%%kmlname%.exif"
-echo ^<description^>^<^^![CDATA[Images du répertoire Carte SD/Picture/%kmlname%]]^>^</description^>>>%kmlfic%
+echo ^<description^>^<^^![CDATA[Images du répertoire %kmlrepscan%]]^>^</description^>>>%kmlfic%
 set kmlnbim=0
 set kmlnbimsgps=0
 set kmlnbimsdate=0
