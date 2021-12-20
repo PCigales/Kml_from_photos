@@ -29,3 +29,9 @@ To use the thumbnails and the kml files in Google Earth Android:
 - copy the thumbnails in "/Android/data/com.google.earth/files/thumbs/"
 - copy the kml files with "- andro" in their name in "/Android/data/com.google.earth/files/"
 - load the kml files in Google Earth from the application or through a file explorer
+
+The script JPEGPS can be used to display and modify the geotag of a JPEG picture (EXIF GPS coordinates), without altering other metadata (it can therefore not create the GPSInfo tag in a photo which is not already geotagged as it would request rewriting the whole EXIF structure).
+Exemples:
+  jpegps "C:\Users\...\Pictures\Holidays\Sunset.jpg" " -49.5605, 69.4868"
+or
+  jpegps "C:\Users\...\Pictures\Holidays\Sunset.jpg" 49°33'37.8\"S 69°29'12.5\"E
