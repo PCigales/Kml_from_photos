@@ -1,7 +1,7 @@
 @echo off
 setlocal enabledelayedexpansion
-if "%~1"=="" (set kmlrepscan="%~dp0") else (set kmlrepscan=%~dp1)
-if "%~2"=="" (set kmlrepdest=%kmlrepscan%) else (set kmlrepdest=%~dp2)
+if "%~1"=="" (set kmlrepscan="%~dp0") else (for /F "delims=" %%i in ("%~1\") do set kmlrepscan=%%~dpi)
+if "%~2"=="" (set kmlrepdest=%kmlrepscan%) else (for /F "delims=" %%i in ("%~2\") do set kmlrepdest=%%~dpi)
 if not exist "%kmlrepdest%thumbs" mkdir "%kmlrepdest%thumbs"
 chcp 1252 >nul
 echo.
@@ -26,7 +26,7 @@ echo ^<?xml version="1.0" encoding="UTF-8"?^>>%kmlfic%
 echo ^<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom"^>>>%kmlfic%
 echo ^<Folder^>>>%kmlfic%
 echo ^<name^>%kmlname%^</name^>>>%kmlfic%
-"C:\Program Files (x86)\ExifTool\exiftool.exe" -createdate -gpslatitude -gpslongitude -filename -d "%%d/%%m/%%Y %%H:%%M:%%S" -c "%%.6f" -f -args -charset filename=Latin -charset EXIF=UTF8 -@ "%kmlrepdest%%kmlname%.lst" >"%kmlrepdest%%kmlname%.exif"
+"C:\Program Files (x86)\ExifTool\exiftool.exe" -createdate -gpslatitude -gpslongitude -filename -d "%%d/%%m/%%Y %%H:%%M:%%S" -c "%%+.6f" -f -args -charset filename=Latin -charset EXIF=UTF8 -@ "%kmlrepdest%%kmlname%.lst" >"%kmlrepdest%%kmlname%.exif"
 echo ^<description^>^<^^![CDATA[Images du répertoire Carte SD/Picture/%kmlname%]]^>^</description^>>>%kmlfic%
 echo ^<Style id="placemark"^>>>%kmlfic%
 echo ^<IconStyle^>>>%kmlfic%
