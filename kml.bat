@@ -42,8 +42,6 @@ if /I "%%i"=="-Orientation" set kmlorientation=%%j
 if /I "%%i"=="-Filename" (
 set /A kmlnbim=!kmlnbim!+1
 set kmldate=!kmlDate:~0,19!
-set kmllatitude=!kmllatitude:~0,-2!
-set kmllongitude=!kmllongitude:~0,-2!
 set kmlorientation=!kmlorientation:~0,-1!
 if /I "!kmlorientation!"=="Rotate 18" (set kmlorientation=!kmlorientation!0) else (set kmlorientation=!kmlorientation:~0,-2!)
 for /F "delims=*" %%k in ("%%j") do set kmlimgnom=%%~nj

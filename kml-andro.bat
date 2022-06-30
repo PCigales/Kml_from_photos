@@ -56,8 +56,6 @@ if /I "%%i"=="-GPSLongitude" set kmllongitude=%%j
 if /I "%%i"=="-Filename" (
 set /A kmlnbim=!kmlnbim!+1
 set kmldate=!kmlDate:~0,19!
-set kmllatitude=!kmllatitude:~0,-2!
-set kmllongitude=!kmllongitude:~0,-2!
 for /F "delims=*" %%k in ("%%j") do set kmlimgnom=%%~nj
 if not "!kmllatitude!"=="" (
 if not "!kmllongitude!"=="" (
