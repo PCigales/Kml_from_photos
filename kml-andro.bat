@@ -1,11 +1,11 @@
 @echo off
 setlocal enabledelayedexpansion
-if "%~1"=="" (set kmlrepscan="%~dp0") else (for /F "delims=" %%i in ("%~1\") do set kmlrepscan=%%~dpi)
+if "%~1"=="" (set kmlrepscan=%~dp0) else (for /F "delims=" %%i in ("%~1\") do set kmlrepscan=%%~dpi)
 if "%~2"=="" (set kmlrepdest=%kmlrepscan%) else (for /F "delims=" %%i in ("%~2\") do set kmlrepdest=%%~dpi)
 if not exist "%kmlrepdest%thumbs" mkdir "%kmlrepdest%thumbs"
 chcp 1252 >nul
 echo.
-echo Scan de "%kmlrepscan%" pour cr�ation des miniatures dans "%kmlrepdest%thumbs\"
+echo Scan de "%kmlrepscan%" pour création des miniatures dans "%kmlrepdest%thumbs\"
 for /F "delims=/" %%i in ("%kmlrepscan:~0,-1%") do set kmlname=%%~ni
 if exist "%kmlrepdest%%kmlname%.lst" del "%kmlrepdest%%kmlname%.lst"
 set kmltherr=0
@@ -19,7 +19,7 @@ if !ERRORLEVEL! NEQ 0 set kmltherr=1
 del "%kmlrepdest%%kmlname%.lst")
 set kmlfic="%kmlrepdest%%kmlname% - andro.kml"
 echo.
-echo Scan de "%kmlrepscan%" pour cr�ation de %kmlfic%
+echo Scan de "%kmlrepscan%" pour création de %kmlfic%
 for /F "delims=*" %%i in ('dir /b /o:n "%kmlrepscan%*.jp*g"') do echo %kmlrepscan%%%~nxi>>"%kmlrepdest%%kmlname%.lst"
 chcp 65001 >nul
 echo ^<?xml version="1.0" encoding="UTF-8"?^>>%kmlfic%
@@ -27,7 +27,7 @@ echo ^<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.co
 echo ^<Folder^>>>%kmlfic%
 echo ^<name^>%kmlname%^</name^>>>%kmlfic%
 "C:\Program Files (x86)\ExifTool\exiftool.exe" -createdate -gpslatitude -gpslongitude -filename -d "%%d/%%m/%%Y %%H:%%M:%%S" -c "%%+.6f" -f -args -charset filename=Latin -charset EXIF=UTF8 -@ "%kmlrepdest%%kmlname%.lst" >"%kmlrepdest%%kmlname%.exif"
-echo ^<description^>^<^^![CDATA[Images du répertoire Carte SD/Picture/%kmlname%]]^>^</description^>>>%kmlfic%
+echo ^<description^>^<^^![CDATA[Images du rÃ©pertoire Carte SD/Picture/%kmlname%]]^>^</description^>>>%kmlfic%
 echo ^<Style id="placemark"^>>>%kmlfic%
 echo ^<IconStyle^>>>%kmlfic%
 echo ^<scale^>2.2^</scale^>>>%kmlfic%
@@ -61,7 +61,7 @@ if not "!kmllatitude!"=="" (
 if not "!kmllongitude!"=="" (
 if "!kmldate!"=="-" (
 set /A kmlnbimsdate=!kmlnbimsdate!+1
-echo Traitement de %%j -^> intégrée sans données de date de création) else echo Traitement de %%j
+echo Traitement de %%j -^> intÃ©grÃ©e sans donnÃ©es de date de crÃ©ation) else echo Traitement de %%j
 set kmlurl=http://localhost:8080/Picture/%kmlname%/%%j
 echo ^<Placemark^>>>%kmlfic%
 echo ^<name^>!kmlimgnom!^</name^>>>%kmlfic%
@@ -83,9 +83,9 @@ echo ^</Point^>>>%kmlfic%
 echo ^</Placemark^>>>%kmlfic%
 ) else (
 set /A kmlnbimsgps=!kmlnbimsgps!+1
-echo Traitement de %%j -^> ignorée ^(pas de données de géolocalisation^))) else (
+echo Traitement de %%j -^> ignorÃ©e ^(pas de donnÃ©es de gÃ©olocalisation^))) else (
 set /A kmlnbimsgps=!kmlnbimsgps!+1
-echo Traitement de %%j -^> ignorée ^(pas de données de géolocalisation^))
+echo Traitement de %%j -^> ignorÃ©e ^(pas de donnÃ©es de gÃ©olocalisation^))
 )
 )
 echo ^</Folder^>>>%kmlfic%
@@ -94,18 +94,18 @@ del "%kmlrepdest%%kmlname%.lst"
 del "%kmlrepdest%%kmlname%.exif"
 if %kmlnbimsgps%==0 (
 if %kmlnbimsdate%==0 (
-echo %kmlnbim% image^(s^) traitée^(s^)
+echo %kmlnbim% image^(s^) traitÃ©e^(s^)
 if "%~3"=="exit" if %kmltherr%==0 (
 chcp 850 >nul
 endlocal
 echo on
 @exit)) else (
-echo %kmlnbim% image^(s^) traitée^(s^) dont
-echo   %kmlnbimsdate% image^(s^) intégrée^(s^) sans données de date de création
+echo %kmlnbim% image^(s^) traitÃ©e^(s^) dont
+echo   %kmlnbimsdate% image^(s^) intÃ©grÃ©e^(s^) sans donnÃ©es de date de crÃ©ation
 )) else (
-echo %kmlnbim% image^(s^) traitée^(s^) dont
-if not %kmlnbimsdate%==0 echo   %kmlnbimsdate% image^(s^) intégrée^(s^) sans données de date de création
-echo   %kmlnbimsgps% image^(s^) ignorée^(s^) ^(pas de données de géolocalisation^))
+echo %kmlnbim% image^(s^) traitÃ©e^(s^) dont
+if not %kmlnbimsdate%==0 echo   %kmlnbimsdate% image^(s^) intÃ©grÃ©e^(s^) sans donnÃ©es de date de crÃ©ation
+echo   %kmlnbimsgps% image^(s^) ignorÃ©e^(s^) ^(pas de donnÃ©es de gÃ©olocalisation^))
 chcp 850 >nul
 endlocal
 echo on
