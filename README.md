@@ -7,7 +7,7 @@ Installation:
 - download ExifTool from https://exiftool.org/, copy the executable in the archive in "C:\Program Files (x86)\ExifTool\" after having created the folder, and rename it from "exiftool(-k).exe" to "exiftool.exe"
 - copy "kml.bat", "kml-andro.bat" and "viewer.htm" (and only these files at this stage) in "C:\Users\\...\AppData\LocalLow\Google\GoogleEarth" where "..." must be replaced by the name of the account
 - either:
-  * download from https://www.irfanview.com/ and install IrfanView in "C:\Program Files (x86)\Irfanview\", and copy "i_view32.ini" in "C:\Users\\...\AppData\LocalLow\Google\GoogleEarth"
+  * download from https://www.irfanview.com/ and install IrfanView 32-bit in "C:\Program Files (x86)\Irfanview\", and copy "i_view32.ini" in "C:\Users\\...\AppData\LocalLow\Google\GoogleEarth" (to use Irfanview 64-bit, install it in "C:\Program Files\Irfanview\", replace "C:\Program Files (x86)\Irfanview\i_view32.exe" by "C:\Program Files\Irfanview\i_view64.exe" in "kml.bat" and "kml-andro.bat" , and rename "i_view32.ini" to "i_view64.ini")
   * or, for faster generation of thumbnails, install Python and Pillow-SIMD (wheels are available at https://www.lfd.uci.edu/~gohlke/pythonlibs/#pillow-simd), and copy "resize.py" in "C:\Users\\...\AppData\LocalLow\Google\GoogleEarth"
 
 Usage:  
