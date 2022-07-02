@@ -13,9 +13,13 @@ for %%i in ("%kmlrepscan%*.jp*g") do if not exist "%kmlrepdest%thumbs\%kmlname% 
 if exist "%kmlrepdest%%kmlname%.lst" (
 if exist "%~dp0resize.py" (
 "%~dp0resize" "%kmlrepdest%%kmlname%.lst" "%kmlrepdest%thumbs\%kmlname%"
-if !ERRORLEVEL! NEQ 0 set kmltherr=1
 ) else (
-"C:\Program Files (x86)\Irfanview\i_view32.exe" /filelist="%kmlrepdest%\%kmlname%.lst" /resize_long=150 /aspectratio /resample /ini="%~dp0" /convert="%kmlrepdest%thumbs\%kmlname% - $N.jpg")
+"C:\Program Files (x86)\Irfanview\i_view32.exe" /filelist="%kmlrepdest%\%kmlname%.lst" /resize_long=150 /aspectratio /resample /ini="%~dp0" /convert="%kmlrepdest%thumbs\%kmlname% - $N.jpg"
+)
+if !ERRORLEVEL! NEQ 0 (
+set kmltherr=1
+echo Erreur lors de la cr�ation des miniatures
+)
 del "%kmlrepdest%%kmlname%.lst")
 set kmlfic="%kmlrepdest%%kmlname%.kml"
 echo.
@@ -106,20 +110,14 @@ echo ^</Folder^>>>%kmlfic%
 echo ^</kml^>>>%kmlfic%
 del "%kmlrepdest%%kmlname%.lst"
 del "%kmlrepdest%%kmlname%.exif"
-if %kmlnbimsgps%==0 (
-if %kmlnbimsdate%==0 (
 echo %kmlnbim% image^(s^) traitée^(s^)
-if "%~3"=="exit" if %kmltherr%==0 (
+if not %kmlnbimsgps%%kmlnbimsdate%%kmltherr%==000 (
+if not %kmlnbimsdate%==0 echo dont %kmlnbimsdate% image^(s^) intégrée^(s^) sans données de date de création
+if not %kmlnbimsgps%==0 echo dont %kmlnbimsgps% image^(s^) ignorée^(s^) ^(pas de données de géolocalisation^)
+echo.
+pause
+)
 chcp 850 >nul
 endlocal
 echo on
-@exit)) else (
-echo %kmlnbim% image^(s^) traitée^(s^) dont
-echo   %kmlnbimsdate% image^(s^) intégrée^(s^) sans données de date de création
-)) else (
-echo %kmlnbim% image^(s^) traitée^(s^) dont
-if not %kmlnbimsdate%==0 echo   %kmlnbimsdate% image^(s^) intégrée^(s^) sans données de date de création
-echo   %kmlnbimsgps% image^(s^) ignorée^(s^) ^(pas de données de géolocalisation^))
-chcp 850 >nul
-endlocal
-echo on
+@if "%~3"=="exit" @exit
