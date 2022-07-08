@@ -20,6 +20,7 @@ set kmlerr=1
 echo Erreur lors de la création des miniatures)
 del "%kmlrepdest%%kmlname%.lst")
 set kmlfic="%kmlrepdest%%kmlname% - andro.kml"
+set kmliconpref=http://localhost:8080/Android/data/com.google.earth/files/thumbs/%kmlname% - 
 echo. 2>"%kmlrepdest%%kmlname%.lst"
 echo Scan de "%kmlrepscan%" pour création de %kmlfic%
 for /F "delims=*" %%i in ('dir /b /o:n "%kmlrepscan%*.jp*g"') do echo %kmlrepscan%%%~nxi>>"%kmlrepdest%%kmlname%.lst"
@@ -87,7 +88,7 @@ echo ^</ExtendedData^>>>%kmlfic%
 echo ^<styleUrl^>#placemark^</styleUrl^>>>%kmlfic%
 echo ^<Style^>>>%kmlfic%
 echo ^<IconStyle^>>>%kmlfic%
-echo ^<Icon^>^<href^>http://localhost:8080/Android/data/com.google.earth/files/thumbs/%kmlname% - !kmlimgnom!.jpg^</href^>^</Icon^>>>%kmlfic%
+echo ^<Icon^>^<href^>%kmliconpref%!kmlimgnom!.jpg^</href^>^</Icon^>>>%kmlfic%
 echo ^</IconStyle^>>>%kmlfic%
 echo ^</Style^>>>%kmlfic%
 echo ^<Point^>>>%kmlfic%
