@@ -61,11 +61,11 @@ echo ^</style^>>>%kmlfic%
 echo ^<div style="float:left;width:200px;height:1.2em;overflow:hidden;"^>^<b^>%kmlname%^</b^>^</div^>>>%kmlfic%
 echo ^<div style="float:right;padding-top:0.2em;font-size:0.8em;"^>$[date]^</div^>^<br/^>^<hr/^>>>%kmlfic%
 echo ^<b^>Lat: ^</b^>^<code^>$[lat]^</code^>^&nbsp;^&nbsp;^&nbsp;^<b^>Lon: ^</b^>^<code^>$[lon]^</code^>^<br/^>^<br/^>>>%kmlfic%
-echo ^<div style="width:308px;height:200px;"^>^<img src="$[url]" class="ori$[ori]" onerror="if (this.getAttribute(&quot;src&quot;).substring(0,3)&excl;=&quot;../&quot;) {this.src!=&quot;../&quot;+this.src.split(&quot;/&quot;).pop();} else {this.src=&quot;$[urlt]&quot;;this.className=&quot;ori0&quot;;this.onerror=null;}"/^>^</div^>^<br/^>>>%kmlfic%
+echo ^<div style="width:308px;height:200px;"^>^<img src="$[url]" class="ori$[ori]" onerror="if (this.getAttribute(&quot;src&quot;).substring(0,1)&excl;=&quot;.&quot;) {this.src=(window.location.href.split(&quot;.&quot;).pop().slice(0, 3).toLowerCase()==&quot;kmz&quot;?&quot;../&quot;:&quot;./&quot;)+this.src.split(&quot;/&quot;).pop();} else {this.src=&quot;$[urlt]&quot;;this.className=&quot;ori0&quot;;this.onerror=null;}"/^>^</div^>^<br/^>>>%kmlfic%
 echo ^<div style="width:300px;"^>^<b^>Nom: ^</b^>^<a href="" id="lien"^>$[name]^</a^>^</div^>^<hr/^>>>%kmlfic%
 echo ^<script^>>>%kmlfic%
 echo var p="$[ori]"+encodeURIComponent^("$[url]"^).replace^(/%%/g,"*"^);>>%kmlfic%
-echo document.getElementById^("lien"^).href="../viewer.htm#"+p;>>%kmlfic%
+echo document.getElementById^("lien"^).href=(window.location.href.split(".").pop().slice(0, 3).toLowerCase()=="kmz"?"..":".")+"/viewer.htm#"+p;>>%kmlfic%
 echo ^</script^>>>%kmlfic%
 echo ^<br/^>$[geDirections]]]^>>>%kmlfic%
 echo ^</text^>>>%kmlfic%
