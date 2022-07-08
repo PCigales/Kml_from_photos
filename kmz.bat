@@ -23,7 +23,6 @@ set kmzfic="%kmlrepdest%%kmlname%.kmz"
 set kmlfic="%kmlrepdest%%kmlname% - kmz.kml"
 set kmlviewer=%kmlrepdest%viewer.htm
 if not exist "%kmlviewer%" copy "%~dp0viewer.htm" "%kmlviewer%">nul
-set kmlviewer=%kmlviewer:\=/%
 set kmliconpref=thumbs/%kmlname% - 
 echo. 2>"%kmlrepdest%%kmlname%.lst"
 echo Scan de "%kmlrepscan%" pour création de %kmlfic%
@@ -66,7 +65,7 @@ echo ^<div style="width:308px;height:200px;"^>^<img src="$[url]" class="ori$[ori
 echo ^<div style="width:300px;"^>^<b^>Nom: ^</b^>^<a href="" id="lien"^>$[name]^</a^>^</div^>^<hr/^>>>%kmlfic%
 echo ^<script^>>>%kmlfic%
 echo var p="$[ori]"+encodeURIComponent^("$[url]"^).replace^(/%%/g,"*"^);>>%kmlfic%
-echo document.getElementById^("lien"^).href="file:///%kmlviewer%#"+p;>>%kmlfic%
+echo document.getElementById^("lien"^).href="../viewer.htm#"+p;>>%kmlfic%
 echo ^</script^>>>%kmlfic%
 echo ^<br/^>$[geDirections]]]^>>>%kmlfic%
 echo ^</text^>>>%kmlfic%
