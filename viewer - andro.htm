@@ -1,13 +1,71 @@
 <!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="utf-8">
-<title>Photo</title>
-</head>
-<body bgcolor="#000000" style="width:100vw;height:100vh;margin:0;">
-<img src="" id="imag" style="position:absolute;margin:auto;top:0;bottom:0;left:0;right:0;max-width:100%;max-height:100%" onerror="this.src=this.src.split('/').pop();this.onerror=null;">
-<script>
-document.getElementById("imag").src = window.location.hash.substring(1);
-</script>
-</body>
+<html lang="fr" style="overflow:hidden>
+  <head>
+    <meta charset="utf-8">
+    <title>Photo</title>
+    <script>
+      document.documentElement.style.setProperty("--scale", "1");
+      document.documentElement.style.setProperty("--dx", "0");
+      document.documentElement.style.setProperty("--dy", "0");
+      var pevents = new Map();
+      var pdist = null;
+      var pcent = null;
+      var pclick = null;
+      function pointer_down(event) {
+        pevents.set(event.pointerId, [event.clientX, event.clientY]);
+        if (pevents.size == 1) {
+          if (pclick != null && performance.now() - pclick[0] < 250 && Math.hypot(event.clientX - pclick[1], event.clientY - pclick[2]) < 25) {
+            if (document.documentElement.style.getPropertyValue("--scale") != "1") {
+              document.documentElement.style.setProperty("--scale", "1");
+              document.documentElement.style.setProperty("--dx", "0");
+              document.documentElement.style.setProperty("--dy", "0");
+            } else {
+              document.documentElement.style.setProperty("--scale", "2");
+              document.documentElement.style.setProperty("--dx", (parseFloat(document.documentElement.style.getPropertyValue("--dx")) * 2 - event.clientX + document.documentElement.clientWidth / 2).toString());
+              document.documentElement.style.setProperty("--dy", (parseFloat(document.documentElement.style.getPropertyValue("--dy")) * 2 - event.clientY + document.documentElement.clientHeight / 2).toString());
+            }
+            pclick = null;
+          } else {
+            pclick = [performance.now(), event.clientX, event.clientY];
+          }
+        }
+        if (pevents.size == 2) {
+          pdist = Array.from(pevents.values()).reduce((a, b) => Math.hypot(b[0] - a[0], b[1] - a[1]));
+          pcent = Array.from(pevents.values()).reduce((a, b) => [(a[0] + b[0]) / 2 - document.documentElement.clientWidth / 2, (a[1] + b[1]) / 2 - document.documentElement.clientHeight / 2]);
+          pclick = null;
+        }
+        event.preventDefault();
+      }
+      function pointer_up(event) {
+        pevents.delete(event.pointerId);
+        if (pevents.size == 1) {pdist = null; pcent = null;}
+        event.preventDefault();
+      }
+      function pointer_move(event) {
+        if (pevents.size == 1) {
+          Array.from(pevents.values()).forEach((pc) => {document.documentElement.style.setProperty("--dx", (parseFloat(document.documentElement.style.getPropertyValue("--dx")) + event.clientX - pc[0]).toString()); document.documentElement.style.setProperty("--dy", (parseFloat(document.documentElement.style.getPropertyValue("--dy")) + event.clientY - pc[1]).toString());});
+          pevents.set(event.pointerId, [event.clientX, event.clientY]);
+          if (pclick != null && Math.hypot(event.clientX - pclick[1], event.clientY - pclick[2]) >= 25) {pclick = null;}
+        }
+        if (pevents.size == 2) {
+          pevents.set(event.pointerId, [event.clientX, event.clientY]);
+          let dist = Array.from(pevents.values()).reduce((a, b) => Math.hypot(b[0] - a[0], b[1] - a[1]));
+          let cent = Array.from(pevents.values()).reduce((a, b) => [(a[0] + b[0]) / 2 - document.documentElement.clientWidth / 2, (a[1] + b[1]) / 2 - document.documentElement.clientHeight / 2]);
+          document.documentElement.style.setProperty("--scale", (parseFloat(document.documentElement.style.getPropertyValue("--scale")) * dist / pdist).toFixed(3));
+          document.documentElement.style.setProperty("--dx", ((parseFloat(document.documentElement.style.getPropertyValue("--dx")) - pcent[0]) * dist / pdist + cent[0]).toString());
+          document.documentElement.style.setProperty("--dy", ((parseFloat(document.documentElement.style.getPropertyValue("--dy")) - pcent[1]) * dist / pdist + cent[1]).toString());
+          pdist = dist;
+          pcent = cent;
+        }
+        event.preventDefault();
+      }
+    </script>
+  </head>
+  <body bgcolor="#000000" style="width:100vw;height:100vh;margin:0;touch-action:none;overflow:hidden;" onpointerdown="pointer_down(event)" onpointerup="pointer_up(event)" onpointercancel="pointer_up(event)" onpointerout="pointer_up(event)" onpointerleave="pointer_up(event)" onpointermove="pointer_move(event)">
+    <img src="" id="imag" style="position:absolute;margin:auto;top:0;bottom:0;left:0;right:0;max-width:100%;max-height:100%;transform:translate(calc(var(--dx) * 1px),calc(var(--dy) * 1px)) scale(var(--scale));pointer-events:none;" onerror="this.src=this.src.split('/').pop();this.onerror=null;">
+    <span id="log" style="color:white"></span>
+    <script>
+      document.getElementById("imag").src = window.location.hash.substring(1);
+    </script>
+  </body>
 </html>
