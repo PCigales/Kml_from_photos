@@ -34,6 +34,7 @@ If the Windows code page differs from cp1252, it may be necessary to change in t
 To use the kml files and the thumbnails, or the kmz files, in Google Earth Android:
 - install (however, for kmz files, otherwise, pins with thumbnail positioned on the map will still be displayed, but no photo will appear in the balloon) a web server (Tiny Web Server for example) and configure it to serve files on "http://localhost:8080", using "utf-8" charset, from the internal simulated or external SD Card root (photos are supposed to be in the "Picture" folder of this location, otherwise, change it in the script)
 - create in "/Android/data/" on the same location the directory tree "com.google.earth/files/thumbs/"
+- copy "viewer - andro.htm" in "/Android/data/com.google.earth/files/"
 - copy the kml or kmz files with "- andro" in their name in "/Android/data/com.google.earth/files/"
 - for the kml files, also copy the thumbnails in "/Android/data/com.google.earth/files/thumbs/"
 - load the kml or kmz files in Google Earth from the application or through a file explorer
