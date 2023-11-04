@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Photo</title>
+</head>
+<body bgcolor="#000000" style="width:100vw;height:100vh;margin:0;">
+<img src="" id="imag" style="position:absolute;margin:auto;top:0;bottom:0;left:0;right:0;max-width:100%;max-height:100%" onerror="this.src=this.src.split('/').pop();this.onerror=null;">
+<script>
+document.getElementById("imag").src = window.location.hash.substring(1);
+</script>
+</body>
+</html>

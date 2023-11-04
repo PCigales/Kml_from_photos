@@ -12,7 +12,7 @@ set kmlerr=0
 for %%i in ("%kmlrepscan%*.jp*g") do if not exist "%kmlrepdest%thumbs\%kmlname% - %%~ni.jpg" echo %%i >>"%kmlrepdest%%kmlname%.lst"
 if exist "%kmlrepdest%%kmlname%.lst" (
 if exist "%~dp0resize.py" (
-"%~dp0resize" "%kmlrepdest%%kmlname%.lst" "%kmlrepdest%thumbs\%kmlname%"
+call "%~dp0resize" "%kmlrepdest%%kmlname%.lst" "%kmlrepdest%thumbs\%kmlname%"
 ) else (
 "C:\Program Files (x86)\Irfanview\i_view32.exe" /filelist="%kmlrepdest%\%kmlname%.lst" /resize_long=150 /aspectratio /resample /ini="%~dp0" /convert="%kmlrepdest%thumbs\%kmlname% - $N.jpg")
 if !ERRORLEVEL! NEQ 0 (
@@ -46,18 +46,12 @@ echo ^<bgColor^>ff000000^</bgColor^>>>%kmlfic%
 echo ^<textColor^>ffaaaaaa^</textColor^>>>%kmlfic%
 echo ^<text^>>>%kmlfic%
 echo ^<^^![CDATA[>>%kmlfic%
-echo ^<div style="float:left;width:50%%;height:1.2em;overflow:hidden;color:white;"^>^<b^>%kmlname%^</b^>^</div^>>>%kmlfic%
+echo ^<div style="float:left;width:50%%;height:1.2em;overflow:auto hidden;white-space:nowrap;color:white;"^>^<b^>%kmlname%^</b^>^</div^>>>%kmlfic%
 echo ^<div style="float:right;padding-top:0.2em;font-size:0.8em;color:#aaaaaa"^>$[date]^</div^>^<br/^>^<hr/^>>>%kmlfic%
 echo ^<b^>^<font color=#aaaaaa^>Lat: ^</b^>^<code^>$[lat]^</code^>^&nbsp;^&nbsp;^&nbsp;^<b^>Lon: ^</b^>^<code^>$[lon]^</code^>^<br/^>^<br/^>>>%kmlfic%
-echo ^<div style="width:96vw;height:64vh;"^>^<img src="$[url]" style="max-width:96vw;max-height:64vh;"/^>^</div^>^<br/^>>>%kmlfic%
+echo ^<div style="width:94vw;height:62vh;"^>^<a href="http://localhost:8080//Android/data/com.google.earth/files/viewer - andro.htm#$[url]"^>^<img src="$[url]" style="max-width:94vw;max-height:62vh;"/^>^</a^>^</div^>^<br/^>>>%kmlfic%
 echo ^<b^>Nom: ^</b^>^<a href="$[url]"^>$[name]^</a^>^</font^>^<hr/^>]]^>>>%kmlfic%
 echo ^</text^>>>%kmlfic%
-echo ^</BalloonStyle^>>>%kmlfic%
-echo ^</Style^>>>%kmlfic%
-echo ^<Style^>>>%kmlfic%
-echo ^<BalloonStyle^>>>%kmlfic%
-echo ^<bgColor^>ff000000^</bgColor^>>>%kmlfic%
-echo ^<textColor^>ffaaaaaa^</textColor^>>>%kmlfic%
 echo ^</BalloonStyle^>>>%kmlfic%
 echo ^</Style^>>>%kmlfic%
 set kmlnbim=0
