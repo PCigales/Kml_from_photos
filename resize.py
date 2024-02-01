@@ -15,7 +15,7 @@ for fic in liste:
   im = Image.open(fic)
  except:
   nbimnr +=1
-  print ("Traitement de " + ntpath.basename(fic) + "-> ignoré (format non reconnu)")
+  print ("Traitement de " + ntpath.basename(fic) + " -> ignoré (format non reconnu)")
   continue
  print ("Traitement de " + ntpath.basename(fic))
  if im._getexif()!=None:

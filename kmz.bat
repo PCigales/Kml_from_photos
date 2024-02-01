@@ -12,7 +12,9 @@ set kmlerr=0
 for %%i in ("%kmlrepscan%*.jp*g") do if not exist "%kmlrepdest%thumbs\%kmlname% - %%~ni.jpg" echo %%i >>"%kmlrepdest%%kmlname%.lst"
 if exist "%kmlrepdest%%kmlname%.lst" (
 if exist "%~dp0resize.py" (
-"%~dp0resize" "%kmlrepdest%%kmlname%.lst" "%kmlrepdest%thumbs\%kmlname%"
+call "%~dp0resize" "%kmlrepdest%%kmlname%.lst" "%kmlrepdest%thumbs\%kmlname%"
+) else if exist "%~dp0resize.ps1" (
+powershell -executionpolicy bypass -file "%~dp0resize.ps1" "%kmlrepdest%%kmlname%.lst" "%kmlrepdest%thumbs\%kmlname%"
 ) else (
 "C:\Program Files (x86)\Irfanview\i_view32.exe" /filelist="%kmlrepdest%\%kmlname%.lst" /resize_long=150 /aspectratio /resample /ini="%~dp0" /convert="%kmlrepdest%thumbs\%kmlname% - $N.jpg")
 if !ERRORLEVEL! NEQ 0 (
@@ -90,8 +92,10 @@ set /A kmlnbim=!kmlnbim!+1
 set kmldate=!kmlDate:~0,19!
 if !kmlorientation!==6 (set kmlorientation=1) else if !kmlorientation!==8 (set kmlorientation=2) else if not !kmlorientation!==3 (set kmlorientation=0)
 for /F "delims=*" %%k in ("%%j") do set kmlimgnom=%%~nj
-if not "!kmllatitude!"=="" (
-if not "!kmllongitude!"=="" (
+if "!kmllatitude!"=="" (set kmllatitude=-)
+if "!kmllongitude!"=="" (set kmllongitude=-)
+if not "!kmllatitude!"=="-" (
+if not "!kmllongitude!"=="-" (
 if "!kmldate!"=="-" (
 set /A kmlnbimsdate=!kmlnbimsdate!+1
 echo Traitement de %%j -^> intégrée sans données de date de création) else echo Traitement de %%j
