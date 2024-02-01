@@ -8,8 +8,9 @@ Installation:
 - for use in Google Earth Desktop, copy "kml.bat" (generation of kml file) and/or "kmz.bat" (generation of kmz file) and "viewer.htm" (and only these files at this stage) in "C:\Users\\...\AppData\LocalLow\Google\GoogleEarth" where "..." must be replaced by the name of the account
 - for use in Google Earth Android, copy "kml-andro.bat" (generation of kml file) and/or "kmz-andro.bat" (generation of kmz file) (and only these files at this stage) in "C:\Users\\...\AppData\LocalLow\Google\GoogleEarth" where "..." must be replaced by the name of the account
 - either:
-  * download from https://www.irfanview.com/ and install IrfanView 32-bit in "C:\Program Files (x86)\Irfanview\", and copy "i_view32.ini" in "C:\Users\\...\AppData\LocalLow\Google\GoogleEarth" (to use Irfanview 64-bit, install it in "C:\Program Files\Irfanview\", replace "C:\Program Files (x86)\Irfanview\i_view32.exe" by "C:\Program Files\Irfanview\i_view64.exe" in the batches, and rename "i_view32.ini" to "i_view64.ini")
-  * or, for faster generation of thumbnails, install Python and Pillow-SIMD (wheels are available at https://www.lfd.uci.edu/~gohlke/pythonlibs/#pillow-simd), and copy "resize.py" in "C:\Users\\...\AppData\LocalLow\Google\GoogleEarth"
+  * fast generation of thumbnails: copy "resize.ps1" in "C:\Users\\...\AppData\LocalLow\Google\GoogleEarth",
+  * slow generation of thumbnails: download from https://www.irfanview.com/ and install IrfanView 32-bit in "C:\Program Files (x86)\Irfanview\", and copy "i_view32.ini" in "C:\Users\\...\AppData\LocalLow\Google\GoogleEarth" (to use Irfanview 64-bit, install it in "C:\Program Files\Irfanview\", replace "C:\Program Files (x86)\Irfanview\i_view32.exe" by "C:\Program Files\Irfanview\i_view64.exe" in the batches, and rename "i_view32.ini" to "i_view64.ini"),
+  * even faster generation of thumbnails: install Python and Pillow-SIMD (wheels no longer available unfortunately), and copy "resize.py" in "C:\Users\\...\AppData\LocalLow\Google\GoogleEarth"
 
 Usage:  
   * kml FOLDER_WITH_PHOTOS FOLDER_DESTINATION  
