@@ -18,7 +18,7 @@ foreach ($p in $l) {
   Write-Host ("Traitement de " + $b)
   $i = $d.Frames[0]
   $m = 150 / [math]::Max($i.PixelWidth, $i.PixelHeight)
-  $r = $i.Metadata.GetQuery('/app1/ifd/exif:{uint=274}') -bor 0
+  $r = $i.Metadata.GetQuery("/app1/ifd/exif:{ushort=274}") -bor 0
   $g = [System.Windows.Media.TransformGroup]::new()
   $g.Children.Add([System.Windows.Media.ScaleTransform]::new($m, $m))
   Switch ($r) {{3, 4 -eq $_} {$g.Children.Add([System.Windows.Media.RotateTransform]::new(180)); break} {5, 6 -eq $_} {$g.Children.Add([System.Windows.Media.RotateTransform]::new(90)); break} {7, 8 -eq $_} {$g.Children.Add([System.Windows.Media.RotateTransform]::new(270)); break}}

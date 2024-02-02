@@ -15,6 +15,7 @@
         pevents.set(event.pointerId, [event.clientX, event.clientY]);
         if (pevents.size == 1) {
           if (pclick != null && performance.now() - pclick[0] < 250 && Math.hypot(event.clientX - pclick[1], event.clientY - pclick[2]) < 25) {
+            if (! document.fullscreenElement) {document.body.requestFullscreen();}
             if (document.documentElement.style.getPropertyValue("--scale") != "1") {
               document.documentElement.style.setProperty("--scale", "1");
               document.documentElement.style.setProperty("--dx", "0");
