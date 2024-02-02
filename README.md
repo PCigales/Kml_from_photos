@@ -1,7 +1,7 @@
 # Kml_from_photos
 Batches to generate a kml or a kmz file to display geotagged photos in Google Earth on Windows or Android
 
-It is a set of batches that can be run under Windows to generate a kml file and thumbnails, or a kmz file embedding the thumbnails, from a folder of geotagged photos, with placemarks and descriptive balloons, that can be imported in Google Earth in order to display the pictures at their respective location on the map. It is possible to open the photo in a bigger window from the balloon by clicking the link with its name under the small view of the photo (or, in Windows, if the option is disabled in settings, by right-clicking the link and clicking "open link").
+It is a set of batches that can be run under Windows to generate a kml file and thumbnails, or a kmz file embedding the thumbnails, from a folder of geotagged photos, with placemarks and descriptive balloons, that can be imported in Google Earth in order to display the pictures at their respective location on the map. It is possible to open the photo in a bigger window from the balloon by, in Windows, clicking the link with its name under the small view of the photo (or if the option is disabled in settings, by right-clicking the link and clicking "open link"), and in Android, by touching either the link or, to open the viewer with more interaction features (such as fullscreen through double-tap), the photo.
 
 Installation:
 - download ExifTool from https://exiftool.org/, copy the executable in the archive in "C:\Program Files (x86)\ExifTool\" after having created the folder, and rename it from "exiftool(-k).exe" to "exiftool.exe"
