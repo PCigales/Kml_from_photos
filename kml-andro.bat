@@ -7,7 +7,7 @@ chcp 1252 >nul
 echo.
 if exist "%~dp0kmlz-andro.ps1" (
   for %%p in (pwsh.exe) do set kmlps="%%~$PATH:p"
-  if !kmlps!=="" set kmlps=powershell
+  if !kmlps!=="" (set kmlps=powershell) else (set DOTNET_SYSTEM_GLOBALIZATION_USENLS=1)
   !kmlps! -executionpolicy bypass -file "%~dp0kmlz-andro.ps1" "%kmlrepscan%\" "%kmlrepdest%\" l
   if !ERRORLEVEL! NEQ 0 (
     echo.
