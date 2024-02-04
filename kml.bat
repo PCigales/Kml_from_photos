@@ -21,10 +21,10 @@ if exist "%kmlrepdest%%kmlname%.lst" del "%kmlrepdest%%kmlname%.lst"
 set kmlerr=0
 for %%i in ("%kmlrepscan%*.jp*g") do if not exist "%kmlrepdest%thumbs\%kmlname% - %%~ni.jpg" echo %%i >>"%kmlrepdest%%kmlname%.lst"
 if exist "%kmlrepdest%%kmlname%.lst" (
-  if exist "%~dp0resize.py" (
-    call "%~dp0resize" "%kmlrepdest%%kmlname%.lst" "%kmlrepdest%thumbs\%kmlname%"
-  ) else if exist "%~dp0resize.ps1" (
+  if exist "%~dp0resize.ps1" (
     powershell -executionpolicy bypass -file "%~dp0resize.ps1" "%kmlrepdest%%kmlname%.lst" "%kmlrepdest%thumbs\%kmlname%"
+  ) else if exist "%~dp0resize.py" (
+    call "%~dp0resize" "%kmlrepdest%%kmlname%.lst" "%kmlrepdest%thumbs\%kmlname%"
   ) else (
     "C:\Program Files (x86)\Irfanview\i_view32.exe" /filelist="%kmlrepdest%\%kmlname%.lst" /resize_long=150 /aspectratio /resample /ini="%~dp0" /convert="%kmlrepdest%thumbs\%kmlname% - $N.jpg"
   )

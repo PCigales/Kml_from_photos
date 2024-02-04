@@ -1,4 +1,4 @@
-﻿Add-Type -AssemblyName PresentationCore
+﻿Add-Type -AssemblyName 'PresentationCore'
 $l = Get-Content $args[0]
 $n = 0
 $c = 0

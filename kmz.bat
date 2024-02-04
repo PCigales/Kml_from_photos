@@ -21,10 +21,10 @@ if exist "%kmlrepdest%%kmlname%.lst" del "%kmlrepdest%%kmlname%.lst"
 set kmlerr=0
 for %%i in ("%kmlrepscan%*.jp*g") do if not exist "%kmlrepdest%thumbs\%kmlname% - %%~ni.jpg" echo %%i >>"%kmlrepdest%%kmlname%.lst"
 if exist "%kmlrepdest%%kmlname%.lst" (
-  if exist "%~dp0resize.py" (
-    call "%~dp0resize" "%kmlrepdest%%kmlname%.lst" "%kmlrepdest%thumbs\%kmlname%"
-  ) else if exist "%~dp0resize.ps1" (
+  if exist "%~dp0resize.ps1" (
     powershell -executionpolicy bypass -file "%~dp0resize.ps1" "%kmlrepdest%%kmlname%.lst" "%kmlrepdest%thumbs\%kmlname%"
+  ) else if exist "%~dp0resize.py" (
+    call "%~dp0resize" "%kmlrepdest%%kmlname%.lst" "%kmlrepdest%thumbs\%kmlname%"
   ) else (
     "C:\Program Files (x86)\Irfanview\i_view32.exe" /filelist="%kmlrepdest%\%kmlname%.lst" /resize_long=150 /aspectratio /resample /ini="%~dp0" /convert="%kmlrepdest%thumbs\%kmlname% - $N.jpg"
   )
@@ -153,7 +153,7 @@ echo Génération de %kmzfic%
 tar  -c -a --options hdrcharset=UTF-8 -f %kmzfic%.zip -C "%kmlrepdest:~0,-1%" -T "%kmlrepdest%%kmlname% - kmz.lst"
 move /Y %kmzfic%.zip %kmzfic% >nul
 del "%kmlrepdest%%kmlname% - kmz.lst"
-rem del %kmlfic%
+del %kmlfic%
 echo %kmlnbim% image^(s^) traitée^(s^)
 if not %kmlnbimsgps%%kmlnbimsdate%%kmlerr%==000 (
   if not %kmlnbimsdate%==0 echo dont %kmlnbimsdate% image^(s^) intégrée^(s^) sans données de date de création
