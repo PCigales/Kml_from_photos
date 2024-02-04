@@ -4,13 +4,18 @@ Batches to generate a kml or a kmz file to display geotagged photos in Google Ea
 It is a set of batches that can be run under Windows to generate a kml file and thumbnails, or a kmz file embedding the thumbnails, from a folder of geotagged photos, with placemarks and descriptive balloons, that can be imported in Google Earth in order to display the pictures at their respective location on the map. It is possible to open the photo in a bigger window from the balloon by, in Windows, clicking the link with its name under the small view of the photo (or if the option is disabled in settings, by right-clicking the link and clicking "open link"), and in Android, by touching either the link or, to open the viewer with more interaction features (such as fullscreen through double-tap), the photo.
 
 Installation:
-- download ExifTool from https://exiftool.org/, copy the executable in the archive in "C:\Program Files (x86)\ExifTool\" after having created the folder, and rename it from "exiftool(-k).exe" to "exiftool.exe"
 - for use in Google Earth Desktop, copy "kml.bat" (generation of kml file) and/or "kmz.bat" (generation of kmz file) and "viewer.htm" (and only these files at this stage) in "C:\Users\\...\AppData\LocalLow\Google\GoogleEarth" where "..." must be replaced by the name of the account
 - for use in Google Earth Android, copy "kml-andro.bat" (generation of kml file) and/or "kmz-andro.bat" (generation of kmz file) (and only these files at this stage) in "C:\Users\\...\AppData\LocalLow\Google\GoogleEarth" where "..." must be replaced by the name of the account
-- either:
-  * fast generation of thumbnails: copy "resize.ps1" in "C:\Users\\...\AppData\LocalLow\Google\GoogleEarth",
-  * slow generation of thumbnails: download from https://www.irfanview.com/ and install IrfanView 32-bit in "C:\Program Files (x86)\Irfanview\", and copy "i_view32.ini" in "C:\Users\\...\AppData\LocalLow\Google\GoogleEarth" (to use Irfanview 64-bit, install it in "C:\Program Files\Irfanview\", replace "C:\Program Files (x86)\Irfanview\i_view32.exe" by "C:\Program Files\Irfanview\i_view64.exe" in the batches, and rename "i_view32.ini" to "i_view64.ini"),
-  * even faster generation of thumbnails: install Python and Pillow-SIMD (wheels no longer available unfortunately), and copy "resize.py" in "C:\Users\\...\AppData\LocalLow\Google\GoogleEarth"
+- option 1 = use Windows Presentation Foundation for thumbnail generation and metadata extraction: copy "kmlz.ps1" (for use in Google Earth Desktop) and/or "kmlz-andro" (for use in Google Earth Android) in "C:\Users\\...\AppData\LocalLow\Google\GoogleEarth"
+- option 2 = use Windows Presentation Foundation for thumbnail generation and ExifTool for metadata extraction:
+  * copy "resize.ps1" in "C:\Users\\...\AppData\LocalLow\Google\GoogleEarth"
+  * download ExifTool from https://exiftool.org/, copy the executable in the archive in "C:\Program Files (x86)\ExifTool\" after having created the folder, and rename it from "exiftool(-k).exe" to "exiftool.exe"
+- option 3 = use Pillow-SIMD (wheels no longer available unfortunately) for thumbnail generation and ExifTool for metadata extraction:
+  * install Python and Pillow-SIMD, and copy "resize.py" in "C:\Users\\...\AppData\LocalLow\Google\GoogleEarth"
+  * download ExifTool from https://exiftool.org/, copy the executable in the archive in "C:\Program Files (x86)\ExifTool\" after having created the folder, and rename it from "exiftool(-k).exe" to "exiftool.exe"
+- option 4 = use Irfanview (slow) for thumbnail generation and ExifTool for metadata extraction:
+  * download from https://www.irfanview.com/ and install IrfanView 32-bit in "C:\Program Files (x86)\Irfanview\", and copy "i_view32.ini" in "C:\Users\\...\AppData\LocalLow\Google\GoogleEarth" (to use Irfanview 64-bit, install it in "C:\Program Files\Irfanview\", replace "C:\Program Files (x86)\Irfanview\i_view32.exe" by "C:\Program Files\Irfanview\i_view64.exe" in the batches, and rename "i_view32.ini" to "i_view64.ini")
+  * download ExifTool from https://exiftool.org/, copy the executable in the archive in "C:\Program Files (x86)\ExifTool\" after having created the folder, and rename it from "exiftool(-k).exe" to "exiftool.exe"
 
 Usage:  
   * kml FOLDER_WITH_PHOTOS FOLDER_DESTINATION  
