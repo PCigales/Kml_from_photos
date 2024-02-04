@@ -10,12 +10,12 @@ foreach ($p in $l) {
     $d = [System.Windows.Media.Imaging.JpegBitmapDecoder]::new($s, [System.Windows.Media.Imaging.BitmapCreateOptions]::PreservePixelFormat, [System.Windows.Media.Imaging.BitmapCacheOption]::OnLoad)
   } catch {
     $c++
-    Write-Host ("Traitement de " + $b + " -> ignoré (format non reconnu)")
+    Write-Host ("Traitement de " + [io.path]::GetFileName($p) + " -> ignoré (format non reconnu)")
     continue
   } finally {
     try {$s.Close()} catch {}
   }
-  Write-Host ("Traitement de " + $b)
+  Write-Host ("Traitement de " + [io.path]::GetFileName($p))
   $i = $d.Frames[0]
   $m = 150 / [math]::Max($i.PixelWidth, $i.PixelHeight)
   $r = $i.Metadata.GetQuery("/app1/ifd/exif:{ushort=274}") -bor 0
