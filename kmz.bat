@@ -8,7 +8,9 @@ echo.
 set kmlviewer=%kmlrepdest%viewer.htm
 if not exist "%kmlviewer%" copy "%~dp0viewer.htm" "%kmlviewer%">nul
 if exist "%~dp0kmlz.ps1" (
-  powershell -executionpolicy bypass -file "%~dp0kmlz.ps1" "%kmlrepscan%\" "%kmlrepdest%\" z
+  for %%p in (pwsh.exe) do set kmlps="%%~$PATH:p"
+  if !kmlps!=="" set kmlps=powershell
+  !kmlps! -executionpolicy bypass -file "%~dp0kmlz.ps1" "%kmlrepscan%\" "%kmlrepdest%\" z
   if !ERRORLEVEL! NEQ 0 (
     echo.
     pause

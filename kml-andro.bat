@@ -6,7 +6,9 @@ if not exist "%kmlrepdest%thumbs" mkdir "%kmlrepdest%thumbs"
 chcp 1252 >nul
 echo.
 if exist "%~dp0kmlz-andro.ps1" (
-  powershell -executionpolicy bypass -file "%~dp0kmlz-andro.ps1" "%kmlrepscan%\" "%kmlrepdest%\" l
+  for %%p in (pwsh.exe) do set kmlps="%%~$PATH:p"
+  if !kmlps!=="" set kmlps=powershell
+  !kmlps! -executionpolicy bypass -file "%~dp0kmlz-andro.ps1" "%kmlrepscan%\" "%kmlrepdest%\" l
   if !ERRORLEVEL! NEQ 0 (
     echo.
     pause
