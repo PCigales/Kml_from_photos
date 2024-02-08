@@ -17,6 +17,14 @@ if exist "%~dp0kmlz.ps1" (
   )
   goto end
 )
+if exist "%~dp0kmlz.py" (
+  call "%~dp0kmlz" "%kmlrepscan%\" "%kmlrepdest%\" l
+  if !ERRORLEVEL! NEQ 0 (
+    echo.
+    pause
+  )
+  goto end
+)
 echo Scan de "%kmlrepscan%" pour création des miniatures dans "%kmlrepdest%thumbs\"
 for /F "delims=/" %%i in ("%kmlrepscan:~0,-1%") do set kmlname=%%~ni
 if exist "%kmlrepdest%%kmlname%.lst" del "%kmlrepdest%%kmlname%.lst"

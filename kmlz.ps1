@@ -98,7 +98,6 @@ foreach ($p in $l) {
       $t = [System.Windows.Media.Imaging.TransformedBitmap]::new($i, $g)
       $f = [System.Windows.Media.Imaging.BitmapFrame]::Create($t)
       $e = [System.Windows.Media.Imaging.JpegBitmapEncoder]::new()
-      if ($d.ColorContexts -ne $null) {$e.ColorContexts = $d.ColorContexts}
       $e.QualityLevel = 85
       $e.Frames.Add($f)
       try {$s.Close()} catch {}

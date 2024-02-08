@@ -15,6 +15,14 @@ if exist "%~dp0kmlz-andro.ps1" (
   )
   goto end
 )
+if exist "%~dp0kmlz-andro.py" (
+  call "%~dp0kmlz-andro" "%kmlrepscan%\" "%kmlrepdest%\" z
+  if !ERRORLEVEL! NEQ 0 (
+    echo.
+    pause
+  )
+  goto end
+)
 echo Scan de "%kmlrepscan%" pour création des miniatures dans "%kmlrepdest%thumbs\"
 for /F "delims=/" %%i in ("%kmlrepscan:~0,-1%") do set kmlname=%%~ni
 if exist "%kmlrepdest%%kmlname%.lst" del "%kmlrepdest%%kmlname%.lst"
