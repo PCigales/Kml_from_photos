@@ -7,7 +7,7 @@ foreach ($p in $l) {
   $n++
   try {
     $s = [System.IO.FileStream]::new($p, [System.IO.FileMode]::Open, [System.IO.FileAccess]::Read)
-    $d = [System.Windows.Media.Imaging.JpegBitmapDecoder]::new($s, [System.Windows.Media.Imaging.BitmapCreateOptions]::PreservePixelFormat, [System.Windows.Media.Imaging.BitmapCacheOption]::OnLoad)
+    $d = [System.Windows.Media.Imaging.JpegBitmapDecoder]::new($s, [System.Windows.Media.Imaging.BitmapCreateOptions]::None, [System.Windows.Media.Imaging.BitmapCacheOption]::OnLoad)
   } catch {
     $c++
     Write-Host ("Traitement de " + [io.path]::GetFileName($p) + " -> ignoré (format non reconnu)")
@@ -21,7 +21,7 @@ foreach ($p in $l) {
   $r = $i.Metadata.GetQuery("/app1/ifd/exif:{ushort=274}") -bor 0
   $g = [System.Windows.Media.TransformGroup]::new()
   $g.Children.Add([System.Windows.Media.ScaleTransform]::new($m, $m))
-  Switch ($r) {{3, 4 -eq $_} {$g.Children.Add([System.Windows.Media.RotateTransform]::new(180)); break} {5, 6 -eq $_} {$g.Children.Add([System.Windows.Media.RotateTransform]::new(90)); break} {7, 8 -eq $_} {$g.Children.Add([System.Windows.Media.RotateTransform]::new(270)); break}}
+  Switch ($r) {{$_ -in 3, 4} {$g.Children.Add([System.Windows.Media.RotateTransform]::new(180)); break} {$_ -in 5, 6} {$g.Children.Add([System.Windows.Media.RotateTransform]::new(90)); break} {$_ -in 7, 8} {$g.Children.Add([System.Windows.Media.RotateTransform]::new(270)); break}}
   $t = [System.Windows.Media.Imaging.TransformedBitmap]::new($i, $g)
   $f = [System.Windows.Media.Imaging.BitmapFrame]::Create($t)
   $e = [System.Windows.Media.Imaging.JpegBitmapEncoder]::new()
