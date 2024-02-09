@@ -49,7 +49,7 @@ foreach ($p in $l) {
   $x = [System.IO.File]::Exists($a + $b + '.jpg')
   try {
     $s = [System.IO.FileStream]::new($p, [System.IO.FileMode]::Open, [System.IO.FileAccess]::Read)
-    $d = [System.Windows.Media.Imaging.JpegBitmapDecoder]::new($s, [System.Windows.Media.Imaging.BitmapCreateOptions]::DelayCreation + [System.Windows.Media.Imaging.BitmapCreateOptions]::PreservePixelFormat, [System.Windows.Media.Imaging.BitmapCacheOption]::OnLoad)
+    $d = [System.Windows.Media.Imaging.JpegBitmapDecoder]::new($s, [System.Windows.Media.Imaging.BitmapCreateOptions]::DelayCreation, [System.Windows.Media.Imaging.BitmapCacheOption]::OnLoad)
     $i = $d.Frames[0]
     $g = $i.Metadata.GetQuery('/app1/ifd/{ushort=34853}/{ushort=2}'), $i.Metadata.GetQuery('/app1/ifd/{ushort=34853}/{ushort=4}')
     if (($g[0].Length -ne 3) -or ($g[1].Length -ne 3)) {
@@ -60,16 +60,16 @@ foreach ($p in $l) {
     }
     $w = (0, 0);
     $g[0][-1 .. -3].ForEach({$v = [System.Bitconverter]::GetBytes($_); $w[0] = $w[0] / 60 + [System.Bitconverter]::ToUInt32($v, 0) / [System.Bitconverter]::ToUInt32($v, 4)});
-    if ('S', 's' -eq $i.Metadata.GetQuery('/app1/ifd/{ushort=34853}/{ushort=1}')) {$w[0] = -$w[0];}
+    if ($i.Metadata.GetQuery('/app1/ifd/{ushort=34853}/{ushort=1}') -in 'S', 's') {$w[0] = -$w[0];}
     $g[1][-1 .. -3].ForEach({$v = [System.Bitconverter]::GetBytes($_); $w[1] = $w[1] / 60 + [System.Bitconverter]::ToUInt32($v, 0) / [System.Bitconverter]::ToUInt32($v, 4)});
-    if ('W', 'w' -eq $i.Metadata.GetQuery('/app1/ifd/{ushort=34853}/{ushort=3}')) {$w[1] = -$w[1];}
+    if ($i.Metadata.GetQuery('/app1/ifd/{ushort=34853}/{ushort=3}') -in 'W', 'w') {$w[1] = -$w[1];}
     $w = $w.ForEach({$_.toString($(if ($_ -ge 0) {'+'} else {''}) + '0.000000', [cultureinfo]::InvariantCulture)})
     if (-not $x) {
       $r = $i.Metadata.GetQuery('/app1/ifd/{ushort=274}') -bor 0
       $m = 150 / [math]::Max($i.PixelWidth, $i.PixelHeight)
       $g = [System.Windows.Media.TransformGroup]::new()
       $g.Children.Add([System.Windows.Media.ScaleTransform]::new($m, $m))
-      Switch ($r) {{3, 4 -eq $_} {$g.Children.Add([System.Windows.Media.RotateTransform]::new(180)); break} {5, 6 -eq $_} {$g.Children.Add([System.Windows.Media.RotateTransform]::new(90)); break} {7, 8 -eq $_} {$g.Children.Add([System.Windows.Media.RotateTransform]::new(270)); break}}
+      Switch ($r) {{$_ -in 3, 4} {$g.Children.Add([System.Windows.Media.RotateTransform]::new(180)); break} {$_ -in 5, 6} {$g.Children.Add([System.Windows.Media.RotateTransform]::new(90)); break} {$_ -in 7, 8} {$g.Children.Add([System.Windows.Media.RotateTransform]::new(270)); break}}
       $t = [System.Windows.Media.Imaging.TransformedBitmap]::new($i, $g)
       $f = [System.Windows.Media.Imaging.BitmapFrame]::Create($t)
       $e = [System.Windows.Media.Imaging.JpegBitmapEncoder]::new()
